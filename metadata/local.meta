@@ -1,0 +1,19 @@
+[props/coingecko_markets_db]
+owner = admin
+version = 9.0.3
+modtime = 1671763935.042381300
+
+[props/source%3A%3A...ta-coingeckodb%2A.log%2A]
+owner = admin
+version = 9.0.3
+modtime = 1671763935.364381100
+
+[props/source%3A%3A...ta_coingeckodb%2A.log%2A]
+owner = admin
+version = 9.0.3
+modtime = 1671763935.605382400
+
+[inputs/coingecko_markets_input%3A%2F%2Fusd_market_cap_input]
+owner = admin
+version = 9.0.3
+modtime = 1671766065.774371600

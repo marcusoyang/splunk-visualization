@@ -1,0 +1,132 @@
+{
+    "meta": {
+        "apiVersion": "1.0.0"
+    },
+    "tokens": [
+        "__settings__.logging.loglevel",
+        "vs_currency",
+        "order",
+        "results_per_page",
+        "page",
+        "last_updated"
+    ],
+    "global_settings": {
+        "logging": {
+            "level": "{{__settings__.logging.loglevel}}"
+        }
+    },
+    "requests": [
+        {
+            "pre_process": {
+                "skip_conditions": [],
+                "pipeline": [
+                    {
+                        "input": [
+                            "{{last_updated}}"
+                        ],
+                        "method": "set_var",
+                        "output": "_raw_last_updated"
+                    },
+                    {
+                        "input": [
+                            "{{last_updated}}",
+                            "%Y-%m-%d %H:%M:%S",
+                            "%Y-%m-%d %H:%M:%S"
+                        ],
+                        "method": "time_str2str",
+                        "output": "last_updated"
+                    }
+                ]
+            },
+            "request": {
+                "url": "https://api.coingecko.com/api/v3/coins/markets?vs_currency={{vs_currency}}&order={{order}}&per_page={{per_page}}&page={{page}}",
+                "method": "GET",
+                "headers": {}
+            },
+            "post_process": {
+                "skip_conditions": [
+                    {
+                        "input": [
+                            "{{__response__.body}}",
+                            "$.$[*]"
+                        ],
+                        "method": "json_empty"
+                    }
+                ],
+                "pipeline": [
+                    {
+                        "input": [
+                            "{{__response__.body}}",
+                            "$.$..last_updated"
+                        ],
+                        "method": "json_path",
+                        "output": "last_updated"
+                    },
+                    {
+                        "input": [
+                            "{{last_updated != ''}}",
+                            "The value of token 'last_updated' extracted from response cannot be empty!"
+                        ],
+                        "method": "assert_true"
+                    },
+                    {
+                        "input": [
+                            "{{last_updated == _raw_last_updated}}"
+                        ],
+                        "method": "exit_if_true"
+                    },
+                    {
+                        "input": [
+                            "{{last_updated}}"
+                        ],
+                        "method": "set_var",
+                        "output": "_raw_last_updated"
+                    },
+                    {
+                        "input": [
+                            "{{__response__.body}}",
+                            "$.$[*]"
+                        ],
+                        "method": "json_path",
+                        "output": "__stdout__"
+                    },
+                    {
+                        "input": [
+                            "{{__stdout__}}",
+                            "",
+                            "{{index}}",
+                            "{{host}}",
+                            "{{source}}",
+                            "{{sourcetype}}"
+                        ],
+                        "method": "splunk_xml",
+                        "output": "__stdout__"
+                    },
+                    {
+                        "input": [
+                            "{{__stdout__}}"
+                        ],
+                        "method": "std_output"
+                    }
+                ]
+            },
+            "iteration_mode": {
+                "iteration_count": "100",
+                "stop_conditions": [
+                    {
+                        "input": [
+                            "{{__response__.body}}",
+                            "$.$[*]"
+                        ],
+                        "method": "json_empty"
+                    }
+                ]
+            },
+            "checkpoint": {
+                "content": {
+                    "last_updated": "{{_raw_last_updated}}"
+                }
+            }
+        }
+    ]
+}
