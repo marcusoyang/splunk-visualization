@@ -1,0 +1,24 @@
+[props/source%3A%3A...ta-coingeckodb%2A.log%2A]
+owner = admin
+version = 9.0.3
+modtime = 1671860203.113973200
+
+[props/source%3A%3A...ta_coingeckodb%2A.log%2A]
+owner = admin
+version = 9.0.3
+modtime = 1671860203.417973100
+
+[collections/TA_coingeckodb_checkpointer]
+owner = splunk-system-user
+version = 9.0.3
+modtime = 1671860258.184966700
+
+[props/coingecko_markets_db]
+owner = admin
+version = 9.0.3
+modtime = 1671860590.065283400
+
+[inputs/coingecko_markets_input%3A%2F%2Fusd_hundred_million]
+owner = admin
+version = 9.0.3
+modtime = 1671942881.947094100
