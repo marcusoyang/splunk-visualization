@@ -6,15 +6,10 @@ from datetime import datetime
 import json
 
 '''
-
     IMPORTANT
-
     Edit only the validate_input and collect_events functions.
-
     Do not edit any other part in this file.
-
     This file is generated only once when creating the modular input.
-
 '''
 
 def validate_input(helper, definition):
