@@ -8,7 +8,7 @@ The front end visualization built using the [Splunk UI Toolkit](https://splunkui
 A [custom search command](https://dev.splunk.com/enterprise/docs/devtools/customsearchcommands/) has also been built to fetch BTC-to-currency exchange rates. This is done by using the [Splunk SDK for Python](https://dev.splunk.com/enterprise/docs/devtools/python/sdk-python/). The command is called `btctocurrency` and can be used as follows:
 
 ```bash
-| btctocurrency <currency>
+| btctocurrency currency=<currency>
 ```
 
 Note: Not all currencies are supported. The list of supported currencies can be found [here](https://www.coingecko.com/en/api/documentation#explore-api).
