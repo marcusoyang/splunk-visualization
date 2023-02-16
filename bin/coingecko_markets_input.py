@@ -1,16 +1,11 @@
 import ta_coingeckodb_declare
-
 import os
 import sys
 import time
 import datetime
 import json
-
 import modinput_wrapper.base_modinput
 from splunklib import modularinput as smi
-
-
-
 import input_module_coingecko_markets_input as input_module
 
 bin_dir = os.path.basename(__file__)
